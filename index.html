@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입 폼</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(() => {
+        $("#registerForm").submit(function (event) {
+          event.preventDefault(); //폼 제출 방지
+
+          //.error 클래스가 추가되면 display: block으로 전환되어 에러 메시지가 표시
+          //모든 에러메세지 초기화(폼을 제출할때마다 새롭게 검증)
+          $(".error-message").removeClass("error");
+          //전의 사용후 남은 addClass("error")의 흔적을 없앰
+
+          //.error 클래스가 추가되면 display: block으로 전환되어 에러 메시지가 표시
+          // 사용자 이름 검증
+          // next():선택한 요소를 기준으로 다음에 오는 형제요소만 선택
+          // addClass():선택한 요소의 class속성에 새값을 추가
+          if ($("#id").val() === "") {
+            $("#id").next(".error-message").addClass("error");
+          }
+
+          // 이메일 검증
+          if ($("#email").val() === "") {
+            $("#email").next(".error-message").addClass("error");
+          }
+
+          // 비밀번호 검증
+          if ($("#pw").val() === "") {
+            $("#pw").eq(0).next(".error-message").addClass("error");
+          }
+
+          // 비밀번호 확인 검증
+          // #pw -> 비밀번호 입력 필드
+          // #pw1 -> 비밀번호 확인 필드
+          //두 값이 일치 하지않거나 공백일 경우(or연산자)
+          if ($("#pw1").val() !== $("#pw").val() || $("#pw1").val() === "") {
+            $("#pw1").next(".error-message").addClass("error");
+            // 비밀번호 확인 필드 바로 다음에 있는 .error-message 요소를 선택
+          }
+        });
+      });
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: rgb(230, 228, 233);
+      }
+
+      h2 {
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      /*회원가입 정보*/
+      .signup-form {
+        background-color: white;
+        width: 350px;
+        height: 700px;
+        margin: 0 auto;
+        margin-top: 50px;
+      }
+      h4 {
+        margin-top: 15px;
+      }
+      input {
+        width: 300px;
+        padding: 8px 0 0;
+
+        border: 1px solid rgb(202, 202, 202);
+      }
+      #signup-infor,
+      #btn {
+        margin-top: 20px;
+        margin-left: 20px;
+      }
+      .radio,
+      #checkbox {
+        width: 10px;
+      }
+
+      /*에러메세지*/
+      .error-message {
+        display: none; /*에러메세지 기본으로 숨기기*/
+        color: red;
+        font-size: 70%;
+      }
+      .error {
+        display: block; /*숨어있는 에러메세지 출력*/
+      }
+
+      /*버튼*/
+      #btn {
+        width: 300px;
+        padding: 10px 0;
+        border: none;
+        border-radius: 5px;
+        font-size: 100%;
+        color: white;
+        background-color: rgb(133, 78, 206);
+      }
+      #btn:hover {
+        background-color: rgb(90, 32, 165);
+      }
+
+      /* 회원가입 정보 확인 */
+      h3 {
+        text-align: center;
+        padding: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-form">
+      <h2>회원가입</h2>
+      <form id="registerForm">
+        <div id="signup-infor">
+          <h4>사용자 이름</h4>
+          <input type="text" id="id" placeholder="" />
+          <div class="error-message">사용자 이름을 입력해주세요.</div>
+          <h4>이메일</h4>
+          <input type="email" id="email" placeholder="" />
+          <div class="error-message">이메일을 입력해주세요.</div>
+          <h4>비밀번호</h4>
+          <input type="password" id="pw" placeholder="" />
+          <div class="error-message">비밀번호를 입력해주세요.</div>
+          <h4>비밀번호확인</h4>
+          <input type="password" id="pw1" placeholder="" />
+          <div class="error-message">비밀번호를 확인해주세요.</div>
+          <div>
+            <input type="radio" class="radio" name="radio" value="male" />남자
+            <input type="radio" class="radio" name="radio" value="Female" />여자
+            <input
+              type="radio"
+              class="radio"
+              name="radio"
+              value="none"
+            />기타<br />
+          </div>
+
+          <a href="">약관 확인></a><br />
+          <input type="checkbox" id="checkbox" value="none" /> 약관에
+          동의합니다.
+        </div>
+        <button id="btn" type="submit">회원가입</button>
+      </form>
+      <h3>회원가입 정보 확인</h3>
+      <div></div>
+    </div>
+  </body>
+</html>
